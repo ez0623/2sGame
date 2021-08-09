@@ -10,7 +10,6 @@ const createBoard = (size) => {
 
 const printGameboard = (gameBoard) => {
   console.log("BOARD:");
-  console.log(gameBoard);
   for (let i = 0; i < SIDE_LENGTH; i++) {
     for (let j = 0; j < SIDE_LENGTH; j++) {
       process.stdout.write(
@@ -37,28 +36,28 @@ const dropPiece = (gameBoard) => {
 
 const indexAbove = (i) => {
   const indexes = [];
-  i = i - 4;
+  i = i - SIDE_LENGTH;
   while (i >= 0) {
     indexes.push(i);
-    i = i - 4;
+    i = i - SIDE_LENGTH;
   }
   return indexes;
 };
 const indexBelow = (i) => {
   const indexes = [];
-  i = i + 4;
-  while (i <= 15) {
+  i = i + SIDE_LENGTH;
+  while (i < SIDE_LENGTH ** 2) {
     indexes.push(i);
-    i = i + 4;
+    i = i + SIDE_LENGTH;
   }
   return indexes;
 };
 const indexRight = (i) => {
-  if ((i + 1) % 4 == 0) {
+  if ((i + 1) % SIDE_LENGTH == 0) {
     return [];
   }
   const indexes = [];
-  const lim = Math.floor(++i / 4) * 4 + 4;
+  const lim = Math.floor(++i / SIDE_LENGTH) * SIDE_LENGTH + SIDE_LENGTH;
 
   while (i < lim) {
     indexes.push(i++);
@@ -66,11 +65,11 @@ const indexRight = (i) => {
   return indexes;
 };
 const indexLeft = (i) => {
-  if (i % 4 == 0) {
+  if (i % SIDE_LENGTH == 0) {
     return [];
   }
   const indexes = [];
-  const lim = Math.floor(--i / 4) * 4;
+  const lim = Math.floor(--i / SIDE_LENGTH) * SIDE_LENGTH;
   while (i >= lim) {
     indexes.push(i--);
   }
@@ -104,7 +103,7 @@ const moveSingle = (gameBoard, start, destIndexes) => {
     }
   });
   //console.log(spot);
-  if (!combined && spot >= 0 && spot <= 15) {
+  if (!combined && spot >= 0 && spot < SIDE_LENGTH ** 2) {
     gameBoard[spot].value = gameBoard[start].value;
     gameBoard[spot].state = 0;
     gameBoard[start].value = 0;
@@ -118,9 +117,9 @@ const moveSingle = (gameBoard, start, destIndexes) => {
 const moveUp = (gameBoard) => {
   let validMove = false;
   // for each row
-  for (let i = 1; i <= 3; i++) {
-    for (let j = 0; j <= 3; j++) {
-      let z = i * 4 + j;
+  for (let i = 1; i < SIDE_LENGTH; i++) {
+    for (let j = 0; j < SIDE_LENGTH; j++) {
+      let z = i * SIDE_LENGTH + j;
       if (gameBoard[z].value != 0) {
         if (moveSingle(gameBoard, z, indexAbove(z))) {
           validMove = true;
@@ -133,9 +132,9 @@ const moveUp = (gameBoard) => {
 };
 const moveDown = (gameBoard) => {
   let validMove = false;
-  for (let i = 2; i >= 0; i--) {
-    for (let j = 0; j < 4; j++) {
-      let z = i * 4 + j;
+  for (let i = SIDE_LENGTH - 2; i >= 0; i--) {
+    for (let j = 0; j < SIDE_LENGTH; j++) {
+      let z = i * SIDE_LENGTH + j;
       if (gameBoard[z].value != 0) {
         if (moveSingle(gameBoard, z, indexBelow(z))) {
           validMove = true;
@@ -149,9 +148,9 @@ const moveDown = (gameBoard) => {
 
 const moveRight = (gameBoard) => {
   let validMove = false;
-  for (let i = 0; i <= 3; i++) {
-    for (let j = 2; j >= 0; j--) {
-      let z = i * 4 + j;
+  for (let i = 0; i < SIDE_LENGTH; i++) {
+    for (let j = SIDE_LENGTH - 2; j >= 0; j--) {
+      let z = i * SIDE_LENGTH + j;
       if (gameBoard[z].value != 0) {
         if (moveSingle(gameBoard, z, indexRight(z))) {
           validMove = true;
@@ -165,9 +164,9 @@ const moveRight = (gameBoard) => {
 
 const moveLeft = (gameBoard) => {
   let validMove = false;
-  for (let i = 0; i <= 3; i++) {
-    for (let j = 1; j <= 3; j++) {
-      let z = i * 4 + j;
+  for (let i = 0; i < SIDE_LENGTH; i++) {
+    for (let j = 1; j < SIDE_LENGTH; j++) {
+      let z = i * SIDE_LENGTH + j;
       if (gameBoard[z].value != 0) {
         //console.log("--" + z + "--");
         if (moveSingle(gameBoard, z, indexLeft(z))) {
@@ -185,12 +184,12 @@ const checkGameOver = (gameBoard) => {
   if (zeroes.length <= 0) {
     // check for valid moves
     // check rows
-    for (let i = 0; i <= 3; i++) {
-      let prevCol = gameBoard[i * 4].value;
+    for (let i = 0; i < SIDE_LENGTH; i++) {
+      let prevCol = gameBoard[i * SIDE_LENGTH].value;
       let prevRow = gameBoard[i].value;
       for (let j = 1; j <= 3; j++) {
-        let z = i * 4 + j;
-        let y = i + 4 * j;
+        let z = i * SIDE_LENGTH + j;
+        let y = i + SIDE_LENGTH * j;
         if (prevCol == gameBoard[z].value) {
           return false;
         }
@@ -218,6 +217,8 @@ const runGame = async () => {
     "Use w,a,s or d to move. You lose when there are no more valid moves."
   );
   const board = createBoard(SIDE_LENGTH);
+  dropPiece(board);
+  dropPiece(board);
   printGameboard(board);
   console.log(checkGameOver(board));
   for await (const line of rl) {
@@ -236,11 +237,15 @@ const runGame = async () => {
         validMove = moveRight(board);
         break;
       default:
-        return;
+        break;
     }
     if (validMove) {
-      printGameboard(board);
       dropPiece(board);
+      printGameboard(board);
+      if (checkGameOver(board)) {
+        console.log("GAMEOVER");
+        return;
+      }
     }
   }
 };
