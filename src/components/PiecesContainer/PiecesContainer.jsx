@@ -1,12 +1,15 @@
 import React, { Fragment, useState, useEffect } from "react";
-
+//redux
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { addScore, resetScore } from "../../actions/score";
 //components
 import Piece from "../Piece/Piece";
 import GameOver from "../GameOver/GameOver";
 
 const SIDE_LENGTH = 4;
 
-const PiecesContainer = () => {
+const PiecesContainer = ({ addScore, resetScore }) => {
   //const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -48,8 +51,10 @@ const PiecesContainer = () => {
       newBoard[i].value = 0;
       newBoard[i].state = 0;
     }
+    resetScore();
     dropPiece();
     dropPiece();
+
     setGameOver(false);
   };
 
@@ -166,6 +171,9 @@ const PiecesContainer = () => {
         // combine
         const newBoard = [...board];
         newBoard[i].value = newBoard[i].value * 2;
+        // redux add score
+        addScore(newBoard[i].value * 2);
+
         newBoard[i].state = 1;
         newBoard[start].value = 0;
         newBoard[start].state = 0;
@@ -286,4 +294,8 @@ const PiecesContainer = () => {
   );
 };
 
-export default PiecesContainer;
+PiecesContainer.propTypes = {
+  addScore: PropTypes.func.isRequired,
+  resetScore: PropTypes.func.isRequired,
+};
+export default connect(null, { addScore, resetScore })(PiecesContainer);

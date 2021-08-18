@@ -1,7 +1,10 @@
 .App {
   display: flex;
+  flex-direction: column;
   --squareSize: 500px;
   --spaceSize: calc(var(--squareSize) * 0.03);
   --tileSize: calc(var(--squareSize) * 0.2125);
   --translateunit: calc(var(--spaceSize) + var(--tileSize));
+  width: var(--squareSize);
+  margin: auto;
 }
