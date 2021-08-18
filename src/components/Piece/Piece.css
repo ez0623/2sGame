@@ -1,0 +1,76 @@
+.piece {
+  display: flex;
+  position: absolute;
+  background-color: #eee1c9;
+  margin: auto;
+  width: var(--tileSize);
+  height: var(--tileSize);
+  border-radius: 3px;
+  z-index: 2;
+  transform: translate(0px, 0px);
+}
+.piece-number {
+  margin: auto;
+  padding: auto;
+  font-weight: bold;
+  font-size: 50px;
+  color: #776e65;
+}
+
+.tile-2 {
+  background: #eee4da;
+}
+.tile-4 {
+  background: #eee1c9;
+}
+.tile-8 {
+  color: #f9f6f2;
+  background: #f3b27a;
+}
+.tile-16 {
+  color: #f9f6f2;
+  background: #f69664;
+}
+.tile-32 {
+  color: #f9f6f2;
+  background: #f77c5f;
+}
+.tile-64 {
+  color: #f9f6f2;
+  background: #f75f3b;
+}
+.tile-128 {
+  background: #edd073;
+  font-size: 45px;
+  color: #f9f6f2;
+}
+
+.tile-256 {
+  background: #edcc62;
+  color: #f9f6f2;
+  font-size: 45px;
+}
+
+.tile-512 {
+  background: #edc950;
+  color: #f9f6f2;
+  font-size: 45px;
+}
+
+.tile-1024 {
+  color: #f9f6f2;
+  background: #edc53f;
+  font-size: 35px;
+}
+
+.tile-2048 {
+  color: #f9f6f2;
+  background: #edc22e;
+  font-size: 35px;
+}
+
+.tile-4096 {
+  color: #f9f6f2;
+  background: #3c3a33;
+  font-size: 30px;
+}

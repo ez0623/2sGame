@@ -1,0 +1,6 @@
+.App {
+  display: flex;
+  --squareSize: 500px;
+  --spaceSize: calc(var(--squareSize) * 0.03);
+  --tileSize: calc(var(--squareSize) * 0.2125);
+}
