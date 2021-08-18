@@ -1,27 +1,57 @@
 .piece {
   display: flex;
   position: absolute;
-  background-color: #eee1c9;
   margin: auto;
   width: var(--tileSize);
   height: var(--tileSize);
   border-radius: 3px;
   z-index: 2;
-  transform: translate(0px, 0px);
 }
+.piece-state-0 {
+  z-index: 2;
+}
+.piece-state-1 {
+  animation: pop 0.1s;
+}
+.piece-state-2 {
+  animation: new 0.1s;
+}
+
 .piece-number {
   margin: auto;
   padding: auto;
   font-weight: bold;
   font-size: 50px;
-  color: #776e65;
+}
+
+@keyframes new {
+  0% {
+    scale: 0;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+@keyframes pop {
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.1;
+  }
+  100% {
+    scale: 1;
+  }
 }
 
 .tile-2 {
   background: #eee4da;
+  color: #776e65;
 }
 .tile-4 {
   background: #eee1c9;
+  color: #776e65;
 }
 .tile-8 {
   color: #f9f6f2;
@@ -44,33 +74,108 @@
   font-size: 45px;
   color: #f9f6f2;
 }
-
 .tile-256 {
   background: #edcc62;
   color: #f9f6f2;
   font-size: 45px;
 }
-
 .tile-512 {
   background: #edc950;
   color: #f9f6f2;
   font-size: 45px;
 }
-
 .tile-1024 {
   color: #f9f6f2;
   background: #edc53f;
   font-size: 35px;
 }
-
 .tile-2048 {
   color: #f9f6f2;
   background: #edc22e;
   font-size: 35px;
 }
-
 .tile-4096 {
   color: #f9f6f2;
   background: #3c3a33;
   font-size: 30px;
+}
+
+.loc-0 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 0));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 0));
+}
+
+.loc-1 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 1));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 0));
+}
+
+.loc-2 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 2));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 0));
+}
+
+.loc-3 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 3));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 0));
+}
+
+.loc-4 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 0));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 1));
+}
+
+.loc-5 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 1));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 1));
+}
+
+.loc-6 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 2));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 1));
+}
+
+.loc-7 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 3));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 1));
+}
+
+.loc-8 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 0));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 2));
+}
+
+.loc-9 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 1));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 2));
+}
+
+.loc-10 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 2));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 2));
+}
+
+.loc-11 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 3));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 2));
+}
+
+.loc-12 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 0));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 3));
+}
+
+.loc-13 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 1));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 3));
+}
+
+.loc-14 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 2));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 3));
+}
+
+.loc-15 {
+  left: calc(var(--spaceSize) + calc(var(--translateunit) * 3));
+  top: calc(var(--spaceSize) + calc(var(--translateunit) * 3));
 }

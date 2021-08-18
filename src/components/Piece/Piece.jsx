@@ -1,12 +1,18 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import "./Piece.css";
 
-const Piece = ({ init, xDest, yDest }) => {
+const Piece = ({ piece }) => {
   return (
-    <div className="piece">
-      <div className="piece-number">2</div>
-    </div>
+    <Fragment>
+      {piece.value > 0 && (
+        <div
+          className={`piece piece-state-${piece.state} tile-${piece.value} loc-${piece.pos}`}
+        >
+          <div className={"piece-number"}>{piece.value}</div>
+        </div>
+      )}
+    </Fragment>
   );
 };
 
