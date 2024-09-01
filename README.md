@@ -2,7 +2,7 @@
 
 A 2048 clone using React and Redux.
 
-Play it here: https://ez0623.github.io/2sGame  
+Play it here: https://edlz.github.io/2sGame/
 Controls: `(w/a/s/d)`
 
 ## Available Scripts
